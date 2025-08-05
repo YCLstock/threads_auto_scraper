@@ -10,6 +10,11 @@ interface TrendRiverChartProps {
   data: KeywordTrendData[];
 }
 
+// Helper function to check if data is a specific data point from the trend
+function isTooltipDataPoint(data: KeywordTrendData | (KeywordTrendData['data'][0] & { keyword: string, color: string })): data is (KeywordTrendData['data'][0] & { keyword: string, color: string }) {
+  return 'date' in data && 'post_count' in data; 
+}
+
 export default function TrendRiverChart({ data }: TrendRiverChartProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null)
@@ -317,26 +322,26 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
         >
           <div className="space-y-1">
             {tooltip.data.keyword && (
-              <div className="font-bold" style={{ color: (tooltip.data as any).color }}>
+              <div className="font-bold" style={{ color: tooltip.data.color }}>
                 {tooltip.data.keyword}
               </div>
             )}
-            {(tooltip.data as any).date && (
+            {isTooltipDataPoint(tooltip.data) && (
               <div className="text-sm text-gray-300">
-                日期: {new Date((tooltip.data as any).date).toLocaleDateString()}
+                日期: {new Date(tooltip.data.date).toLocaleDateString()}
               </div>
             )}
             <div className="text-sm">
-              贴文数: {(tooltip.data as { post_count: number, total_mentions: number }).post_count || (tooltip.data as { post_count: number, total_mentions: number }).total_mentions}
+              贴文数: {isTooltipDataPoint(tooltip.data) ? tooltip.data.post_count : tooltip.data.total_mentions}
             </div>
-            {(tooltip.data as { total_interactions: number }).total_interactions && (
+            {isTooltipDataPoint(tooltip.data) && tooltip.data.total_interactions && (
               <div className="text-sm">
-                互动数: {(tooltip.data as { total_interactions: number }).total_interactions.toLocaleString()}
+                互动数: {tooltip.data.total_interactions.toLocaleString()}
               </div>
             )}
-            {(tooltip.data as { momentum_score: number }).momentum_score && (
+            {isTooltipDataPoint(tooltip.data) && tooltip.data.momentum_score && (
               <div className="text-sm">
-                动量分数: {(tooltip.data as { momentum_score: number }).momentum_score.toFixed(2)}
+                动量分数: {tooltip.data.momentum_score.toFixed(2)}
               </div>
             )}
           </div>
