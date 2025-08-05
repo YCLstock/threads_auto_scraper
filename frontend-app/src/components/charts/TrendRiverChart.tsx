@@ -144,7 +144,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
         // 高亮当前路径
         d3.selectAll('.river-path')
-          .style('opacity', (path: RiverPath) => path.key === keyword.keyword ? 1 : 0.2)
+          .style('opacity', (path) => (path as RiverPath).key === keyword.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
@@ -234,7 +234,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .on('mouseenter', function(event, d) {
         setSelectedKeyword(d.keyword)
         d3.selectAll('.river-path')
-          .style('opacity', (path: RiverPath) => path.key === d.keyword ? 1 : 0.2)
+          .style('opacity', (path) => (path as RiverPath).key === d.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
