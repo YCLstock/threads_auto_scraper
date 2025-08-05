@@ -213,7 +213,7 @@
   ],
   "topic_treemap_data": [
     {
-      "topic_id": 1,
+      "topic_id": "1",
       "topic_name": "AI與科技創新",
       "topic_keywords": ["AI", "人工智慧", "科技", "創新", "技術"],
       "post_count": 34,
@@ -251,7 +251,7 @@
       ]
     },
     {
-      "topic_id": 2,
+      "topic_id": "2",
       "topic_name": "投資理財",
       "topic_keywords": ["投資", "股票", "理財", "市場", "報酬"],
       "post_count": 28,
@@ -289,7 +289,7 @@
       ]
     },
     {
-      "topic_id": 3,
+      "topic_id": "3",
       "topic_name": "台灣經濟",
       "topic_keywords": ["台股", "經濟", "產業", "製造業", "出口"],
       "post_count": 22,
@@ -321,7 +321,7 @@
       ]
     },
     {
-      "topic_id": 4,
+      "topic_id": "4",
       "topic_name": "金融科技",
       "topic_keywords": ["fintech", "區塊鏈", "數位支付", "加密貨幣", "DeFi"],
       "post_count": 19,
@@ -353,7 +353,7 @@
       ]
     },
     {
-      "topic_id": 5,
+      "topic_id": "5",
       "topic_name": "永續發展",
       "topic_keywords": ["ESG", "永續", "綠能", "環保", "碳中和"],
       "post_count": 16,
@@ -385,7 +385,7 @@
       ]
     },
     {
-      "topic_id": 6,
+      "topic_id": "6",
       "topic_name": "消費趨勢",
       "topic_keywords": ["消費", "零售", "電商", "品牌", "市場"],
       "post_count": 13,
