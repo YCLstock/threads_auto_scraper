@@ -4,20 +4,12 @@ import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import { motion } from 'framer-motion'
 
-interface TrendData {
-  keyword: string
-  data: {
-    date: string
-    post_count: number
-    total_interactions: number
-    momentum_score: number
-  }[]
-  color: string
-  total_mentions: number
-}
+import { KeywordTrendData } from '@/lib/types';
+
+interface TrendData extends KeywordTrendData {}
 
 interface TrendRiverChartProps {
-  data: TrendData[]
+  data: TrendData[];
 }
 
 export default function TrendRiverChart({ data }: TrendRiverChartProps) {
@@ -71,20 +63,20 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       return dateData
     })
 
-    const stack = d3.stack< { date: Date | null; [key: string]: number | Date | null }>()
+    const stack = d3.stack<any, { [key: string]: number; }, string>()
       .keys(data.map(d => d.keyword))
       .order(d3.stackOrderNone)
       .offset(d3.stackOffsetWiggle)
 
-    const stackedData = stack(stackData as any)
+    const stackedData = stack(stackData)
 
     // 更新y比例尺以适应堆叠数据
     const yExtent = d3.extent(stackedData.flat().flat()) as [number, number]
     yScale.domain(yExtent).nice()
 
     // 创建区域生成器
-    const area = d3.area<d3.SeriesPoint<{ date: Date | null; [key: string]: number | Date | null }>>()
-      .x(d => xScale(d.data.date as Date))
+    const area = d3.area<d3.SeriesPoint<any>>()
+      .x((d: any) => xScale(d.data.date as Date))
       .y0(d => yScale(d[0]))
       .y1(d => yScale(d[1]))
       .curve(d3.curveBasis)
@@ -115,7 +107,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .enter()
       .append('path')
       .attr('class', 'river-path')
-      .attr('d', area as any)
+      .attr('d', area)
       .style('fill', (d, i) => `url(#gradient-${data[i].keyword})`)
       .style('stroke', (d, i) => data[i].color)
       .style('stroke-width', 1)
@@ -135,7 +127,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
     // 鼠标事件处理
     paths
-      .on('mouseenter', function(event, d: d3.Series<{ [key: string]: number; }, { [key: string]: number; }>) {
+      .on('mouseenter', function(event, d: d3.Series<any, any>) {
         const keywordIndex = stackedData.indexOf(d)
         const keyword = data[keywordIndex]
         const [x, y] = d3.pointer(event, document.body)
@@ -235,7 +227,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .on('mouseenter', function(event, d) {
         setSelectedKeyword(d.keyword)
         d3.selectAll('.river-path')
-          .style('opacity', (path: any) => path.key === d.keyword ? 1 : 0.2)
+          .style('opacity', (path: any) => (path as d3.Series<any, any>).key === d.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
@@ -337,16 +329,16 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
               </div>
             )}
             <div className="text-sm">
-              贴文数: {(tooltip.data as any).post_count || (tooltip.data as any).total_mentions}
+              贴文数: {(tooltip.data as { post_count: number, total_mentions: number }).post_count || (tooltip.data as { post_count: number, total_mentions: number }).total_mentions}
             </div>
-            {(tooltip.data as any).total_interactions && (
+            {(tooltip.data as { total_interactions: number }).total_interactions && (
               <div className="text-sm">
-                互动数: {(tooltip.data as any).total_interactions.toLocaleString()}
+                互动数: {(tooltip.data as { total_interactions: number }).total_interactions.toLocaleString()}
               </div>
             )}
-            {(tooltip.data as any).momentum_score && (
+            {(tooltip.data as { momentum_score: number }).momentum_score && (
               <div className="text-sm">
-                动量分数: {(tooltip.data as any).momentum_score.toFixed(2)}
+                动量分数: {(tooltip.data as { momentum_score: number }).momentum_score.toFixed(2)}
               </div>
             )}
           </div>

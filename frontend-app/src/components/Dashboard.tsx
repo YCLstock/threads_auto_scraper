@@ -17,6 +17,13 @@ import {
   testConnection 
 } from '@/lib/api'
 
+import { 
+  HeatBubbleData, 
+  KeywordTrendData, 
+  TopicTreemapData, 
+  DashboardStats 
+} from '@/lib/types';
+
 interface DashboardData {
   metadata: {
     generated_at: string;
@@ -24,11 +31,12 @@ interface DashboardData {
     total_posts: number;
     total_users: number;
     total_interactions: number;
+    data_source?: string;
   };
-  heat_bubble_data: any[];
-  keyword_trends_data: any[];
-  topic_treemap_data: any[];
-  dashboard_stats: {
+  heat_bubble_data: HeatBubbleData[];
+  keyword_trends_data: KeywordTrendData[];
+  topic_treemap_data: TopicTreemapData[];
+  dashboard_stats: DashboardStats & {
     top_trending_topics: { name: string; growth_rate: number; posts_today: number }[];
     top_users: { username: string; total_interactions: number; posts_count: number }[];
   };
@@ -70,11 +78,11 @@ export default function Dashboard() {
                 generated_at: new Date().toISOString(),
                 data_source: 'supabase',
                 ...statsData
-              } as any,
+              },
               heat_bubble_data: heatData,
               keyword_trends_data: trendsData,
               topic_treemap_data: topicsData,
-              dashboard_stats: statsData as any
+              dashboard_stats: statsData
             })
           } else {
             // 連接失敗，回退到 mock 數據

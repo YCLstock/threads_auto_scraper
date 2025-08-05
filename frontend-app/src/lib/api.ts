@@ -180,7 +180,7 @@ export async function testConnection() {
   }
 
   try {
-    const { data: _data, error } = await supabase
+    const { error } = await supabase
       .from('raw_posts')
       .select('post_id')
       .limit(1)

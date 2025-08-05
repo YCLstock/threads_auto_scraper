@@ -4,21 +4,13 @@ import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import { motion } from 'framer-motion'
 
-interface BubbleData {
-  post_id: string
-  username: string
-  content: string
-  timestamp: string
-  total_interactions: number
-  heat_density: number
-  freshness_score: number
-  engagement_rate: number
-  viral_potential: number
-  post_url: string
-  x?: number
-  y?: number
-  radius?: number
-  color?: string
+import { HeatBubbleData } from '@/lib/types';
+
+interface BubbleData extends HeatBubbleData {
+  x?: number;
+  y?: number;
+  radius?: number;
+  color?: string;
 }
 
 interface HeatBubbleChartProps {
@@ -79,7 +71,7 @@ export default function HeatBubbleChart({ data }: HeatBubbleChartProps) {
     const simulation = d3.forceSimulation(data as d3.SimulationNodeDatum[])
       .force('charge', d3.forceManyBody().strength(-50))
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius((d: any) => radiusScale((d as BubbleData).total_interactions) + 2))
+      .force('collision', d3.forceCollide().radius((d: BubbleData) => radiusScale(d.total_interactions) + 2))
       .force('x', d3.forceX(width / 2).strength(0.1))
       .force('y', d3.forceY(height / 2).strength(0.1))
 
@@ -155,7 +147,7 @@ export default function HeatBubbleChart({ data }: HeatBubbleChartProps) {
     // 力导向模拟更新
     simulation.on('tick', () => {
       bubbles
-        .attr('transform', (d: any) => `translate(${d.x},${d.y})`)
+        .attr('transform', (d: BubbleData) => `translate(${d.x},${d.y})`)
     })
 
     // 添加图例
