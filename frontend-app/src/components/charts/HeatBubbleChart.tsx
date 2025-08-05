@@ -71,7 +71,7 @@ export default function HeatBubbleChart({ data }: HeatBubbleChartProps) {
     const simulation = d3.forceSimulation(data as d3.SimulationNodeDatum[])
       .force('charge', d3.forceManyBody().strength(-50))
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius((d: any) => radiusScale((d as BubbleData).total_interactions) + 2))
+      .force('collision', d3.forceCollide().radius((d: d3.SimulationNodeDatum) => radiusScale(((d as unknown) as BubbleData).total_interactions) + 2))
       .force('x', d3.forceX(width / 2).strength(0.1))
       .force('y', d3.forceY(height / 2).strength(0.1))
 
