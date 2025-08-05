@@ -175,6 +175,8 @@ export async function getDashboardStats() {
       total_interactions: 0,
       active_topics: 0,
       trending_keywords: 0,
+      total_users: 0,
+      data_range: { start_date: new Date().toISOString(), end_date: new Date().toISOString() },
       last_updated: new Date().toISOString()
     }
   }
