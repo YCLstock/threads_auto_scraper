@@ -17,12 +17,7 @@ import {
   testConnection 
 } from '@/lib/api'
 
-import { 
-  HeatBubbleData, 
-  KeywordTrendData, 
-  TopicTreemapData, 
-  DashboardStats 
-} from '@/lib/types';
+import { DashboardData } from '@/lib/types';
 
 
 
