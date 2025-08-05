@@ -1,0 +1,495 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-05T15:30:00Z",
+    "data_range": {
+      "start_date": "2025-07-29T00:00:00Z",
+      "end_date": "2025-08-05T23:59:59Z"
+    },
+    "total_posts": 156,
+    "total_users": 13,
+    "total_interactions": 2847
+  },
+  "heat_bubble_data": [
+    {
+      "post_id": "bubble_1",
+      "username": "deehsiang",
+      "content": "AI軍備競賽仍在加速，這次是 Meta與微軟給市場帶來了驚喜。今年第一季微軟的資本支出減幅達 5.3%，讓市場擔心科技巨頭對 AI支出放緩，但第二季微軟再次擴大支出達 242億美元...",
+      "timestamp": "2025-08-05T08:15:30Z",
+      "total_interactions": 73,
+      "heat_density": 95.2,
+      "freshness_score": 0.98,
+      "engagement_rate": 1.8,
+      "viral_potential": 0.85,
+      "post_url": "https://threads.com/@deehsiang/post/bubble_1",
+      "x": 320,
+      "y": 180,
+      "radius": 65,
+      "color": "#ff6b6b"
+    },
+    {
+      "post_id": "bubble_2", 
+      "username": "jackieyutw",
+      "content": "最新財報顯示，台股科技類股表現亮眼，特別是AI相關產業鏈。投資人對於未來展望樂觀，預期第四季將有更多突破...",
+      "timestamp": "2025-08-05T10:22:15Z",
+      "total_interactions": 89,
+      "heat_density": 88.7,
+      "freshness_score": 0.95,
+      "engagement_rate": 2.1,
+      "viral_potential": 0.78,
+      "post_url": "https://threads.com/@jackieyutw/post/bubble_2",
+      "x": 480,
+      "y": 240,
+      "radius": 72,
+      "color": "#4ecdc4"
+    },
+    {
+      "post_id": "bubble_3",
+      "username": "unclestocknotes", 
+      "content": "今日重點關注Fed會議紀錄，市場預期利率政策將影響科技股走勢。建議投資者保持謹慎樂觀態度...",
+      "timestamp": "2025-08-05T12:45:20Z",
+      "total_interactions": 65,
+      "heat_density": 82.4,
+      "freshness_score": 0.92,
+      "engagement_rate": 1.6,
+      "viral_potential": 0.71,
+      "post_url": "https://threads.com/@unclestocknotes/post/bubble_3",
+      "x": 200,
+      "y": 320,
+      "radius": 58,
+      "color": "#45b7d1"
+    },
+    {
+      "post_id": "bubble_4",
+      "username": "kaopaotishi",
+      "content": "台灣半導體產業持續領先全球，新的製程技術突破將為產業帶來新一波成長動能。相關概念股值得關注...",
+      "timestamp": "2025-08-05T14:10:45Z",
+      "total_interactions": 45,
+      "heat_density": 75.8,
+      "freshness_score": 0.88,
+      "engagement_rate": 1.3,
+      "viral_potential": 0.63,
+      "post_url": "https://threads.com/@kaopaotishi/post/bubble_4",
+      "x": 380,
+      "y": 400,
+      "radius": 48,
+      "color": "#96ceb4"
+    },
+    {
+      "post_id": "bubble_5",
+      "username": "williamtantwm",
+      "content": "區塊鏈技術在金融科技領域的應用越來越廣泛，DeFi生態系統正在重新定義傳統金融服務...",
+      "timestamp": "2025-08-04T16:30:10Z",
+      "total_interactions": 38,
+      "heat_density": 65.2,
+      "freshness_score": 0.75,
+      "engagement_rate": 1.1,
+      "viral_potential": 0.55,
+      "post_url": "https://threads.com/@williamtantwm/post/bubble_5",
+      "x": 150,
+      "y": 450,
+      "radius": 42,
+      "color": "#feca57"
+    },
+    {
+      "post_id": "bubble_6",
+      "username": "tigerdd822",
+      "content": "ESG投資理念持續發酵，綠能概念股成為市場新寵。永續發展已成為企業競爭力的重要指標...",
+      "timestamp": "2025-08-04T09:20:35Z",
+      "total_interactions": 52,
+      "heat_density": 58.9,
+      "freshness_score": 0.68,
+      "engagement_rate": 1.4,
+      "viral_potential": 0.49,
+      "post_url": "https://threads.com/@tigerdd822/post/bubble_6",
+      "x": 520,
+      "y": 360,
+      "radius": 52,
+      "color": "#ff9ff3"
+    },
+    {
+      "post_id": "bubble_7",
+      "username": "masaathome",
+      "content": "疫後經濟復甦趨勢明確，消費類股開始展現活力。旅遊、餐飲等服務業有望迎來新一輪成長...",
+      "timestamp": "2025-08-03T20:15:22Z",
+      "total_interactions": 29,
+      "heat_density": 42.6,
+      "freshness_score": 0.52,
+      "engagement_rate": 0.9,
+      "viral_potential": 0.38,
+      "post_url": "https://threads.com/@masaathome/post/bubble_7",
+      "x": 280,
+      "y": 500,
+      "radius": 36,
+      "color": "#54a0ff"
+    },
+    {
+      "post_id": "bubble_8",
+      "username": "ieobserve",
+      "content": "全球供應鏈重組持續進行，台灣製造業面臨轉型挑戰與機會。智慧製造將是未來競爭關鍵...",
+      "timestamp": "2025-08-03T14:42:18Z",
+      "total_interactions": 41,
+      "heat_density": 45.3,
+      "freshness_score": 0.48,
+      "engagement_rate": 1.2,
+      "viral_potential": 0.42,
+      "post_url": "https://threads.com/@ieobserve/post/bubble_8",
+      "x": 420,
+      "y": 480,
+      "radius": 44,
+      "color": "#5f27cd"
+    }
+  ],
+  "keyword_trends_data": [
+    {
+      "keyword": "AI",
+      "data": [
+        {"date": "2025-07-30", "post_count": 12, "total_interactions": 287, "momentum_score": 0.8},
+        {"date": "2025-07-31", "post_count": 15, "total_interactions": 342, "momentum_score": 0.9},
+        {"date": "2025-08-01", "post_count": 18, "total_interactions": 398, "momentum_score": 1.2},
+        {"date": "2025-08-02", "post_count": 22, "total_interactions": 456, "momentum_score": 1.5},
+        {"date": "2025-08-03", "post_count": 19, "total_interactions": 423, "momentum_score": 1.3},
+        {"date": "2025-08-04", "post_count": 25, "total_interactions": 578, "momentum_score": 1.8},
+        {"date": "2025-08-05", "post_count": 28, "total_interactions": 634, "momentum_score": 2.1}
+      ],
+      "color": "#ff6b6b",
+      "total_mentions": 139
+    },
+    {
+      "keyword": "投資",
+      "data": [
+        {"date": "2025-07-30", "post_count": 8, "total_interactions": 195, "momentum_score": 0.6},
+        {"date": "2025-07-31", "post_count": 11, "total_interactions": 248, "momentum_score": 0.7},
+        {"date": "2025-08-01", "post_count": 14, "total_interactions": 312, "momentum_score": 0.9},
+        {"date": "2025-08-02", "post_count": 16, "total_interactions": 356, "momentum_score": 1.1},
+        {"date": "2025-08-03", "post_count": 13, "total_interactions": 289, "momentum_score": 0.8},
+        {"date": "2025-08-04", "post_count": 18, "total_interactions": 402, "momentum_score": 1.4},
+        {"date": "2025-08-05", "post_count": 21, "total_interactions": 478, "momentum_score": 1.6}
+      ],
+      "color": "#4ecdc4",
+      "total_mentions": 101
+    },
+    {
+      "keyword": "科技",
+      "data": [
+        {"date": "2025-07-30", "post_count": 10, "total_interactions": 234, "momentum_score": 0.7},
+        {"date": "2025-07-31", "post_count": 12, "total_interactions": 267, "momentum_score": 0.8},
+        {"date": "2025-08-01", "post_count": 15, "total_interactions": 345, "momentum_score": 1.0},
+        {"date": "2025-08-02", "post_count": 17, "total_interactions": 389, "momentum_score": 1.2},
+        {"date": "2025-08-03", "post_count": 14, "total_interactions": 321, "momentum_score": 0.9},
+        {"date": "2025-08-04", "post_count": 19, "total_interactions": 435, "momentum_score": 1.5},
+        {"date": "2025-08-05", "post_count": 23, "total_interactions": 523, "momentum_score": 1.8}
+      ],
+      "color": "#45b7d1",
+      "total_mentions": 110
+    },
+    {
+      "keyword": "台股",
+      "data": [
+        {"date": "2025-07-30", "post_count": 6, "total_interactions": 142, "momentum_score": 0.4},
+        {"date": "2025-07-31", "post_count": 9, "total_interactions": 201, "momentum_score": 0.6},
+        {"date": "2025-08-01", "post_count": 11, "total_interactions": 253, "momentum_score": 0.8},
+        {"date": "2025-08-02", "post_count": 13, "total_interactions": 298, "momentum_score": 1.0},
+        {"date": "2025-08-03", "post_count": 10, "total_interactions": 229, "momentum_score": 0.7},
+        {"date": "2025-08-04", "post_count": 15, "total_interactions": 342, "momentum_score": 1.2},
+        {"date": "2025-08-05", "post_count": 17, "total_interactions": 387, "momentum_score": 1.4}
+      ],
+      "color": "#96ceb4",
+      "total_mentions": 81
+    },
+    {
+      "keyword": "半導體",
+      "data": [
+        {"date": "2025-07-30", "post_count": 5, "total_interactions": 118, "momentum_score": 0.3},
+        {"date": "2025-07-31", "post_count": 7, "total_interactions": 156, "momentum_score": 0.5},
+        {"date": "2025-08-01", "post_count": 9, "total_interactions": 204, "momentum_score": 0.7},
+        {"date": "2025-08-02", "post_count": 11, "total_interactions": 245, "momentum_score": 0.9},
+        {"date": "2025-08-03", "post_count": 8, "total_interactions": 178, "momentum_score": 0.6},
+        {"date": "2025-08-04", "post_count": 12, "total_interactions": 278, "momentum_score": 1.1},
+        {"date": "2025-08-05", "post_count": 14, "total_interactions": 312, "momentum_score": 1.3}
+      ],
+      "color": "#feca57",
+      "total_mentions": 66
+    }
+  ],
+  "topic_treemap_data": [
+    {
+      "topic_id": 1,
+      "topic_name": "AI與科技創新",
+      "topic_keywords": ["AI", "人工智慧", "科技", "創新", "技術"],
+      "post_count": 34,
+      "average_heat_density": 78.5,
+      "total_interactions": 1256,
+      "dominant_sentiment": "positive",
+      "trending_score": 0.92,
+      "size": 1256,
+      "color": "#ff6b6b",
+      "children": [
+        {
+          "name": "機器學習",
+          "value": 445,
+          "sentiment": "positive",
+          "posts": 12
+        },
+        {
+          "name": "深度學習",
+          "value": 378,
+          "sentiment": "positive", 
+          "posts": 10
+        },
+        {
+          "name": "自然語言處理",
+          "value": 267,
+          "sentiment": "neutral",
+          "posts": 7
+        },
+        {
+          "name": "電腦視覺",
+          "value": 166,
+          "sentiment": "positive",
+          "posts": 5
+        }
+      ]
+    },
+    {
+      "topic_id": 2,
+      "topic_name": "投資理財",
+      "topic_keywords": ["投資", "股票", "理財", "市場", "報酬"],
+      "post_count": 28,
+      "average_heat_density": 65.3,
+      "total_interactions": 987,
+      "dominant_sentiment": "neutral",
+      "trending_score": 0.74,
+      "size": 987,
+      "color": "#4ecdc4",
+      "children": [
+        {
+          "name": "股票投資",
+          "value": 398,
+          "sentiment": "positive",
+          "posts": 11
+        },
+        {
+          "name": "基金理財",
+          "value": 289,
+          "sentiment": "neutral",
+          "posts": 8
+        },
+        {
+          "name": "風險管理",
+          "value": 201,
+          "sentiment": "neutral",
+          "posts": 6
+        },
+        {
+          "name": "被動投資",
+          "value": 99,
+          "sentiment": "positive",
+          "posts": 3
+        }
+      ]
+    },
+    {
+      "topic_id": 3,
+      "topic_name": "台灣經濟",
+      "topic_keywords": ["台股", "經濟", "產業", "製造業", "出口"],
+      "post_count": 22,
+      "average_heat_density": 58.7,
+      "total_interactions": 723,
+      "dominant_sentiment": "positive",
+      "trending_score": 0.68,
+      "size": 723,
+      "color": "#45b7d1",
+      "children": [
+        {
+          "name": "半導體產業",
+          "value": 312,
+          "sentiment": "positive",
+          "posts": 9
+        },
+        {
+          "name": "製造業轉型",
+          "value": 234,
+          "sentiment": "neutral",
+          "posts": 7
+        },
+        {
+          "name": "出口貿易",
+          "value": 177,
+          "sentiment": "positive",
+          "posts": 6
+        }
+      ]
+    },
+    {
+      "topic_id": 4,
+      "topic_name": "金融科技",
+      "topic_keywords": ["fintech", "區塊鏈", "數位支付", "加密貨幣", "DeFi"],
+      "post_count": 19,
+      "average_heat_density": 52.1,
+      "total_interactions": 542,
+      "dominant_sentiment": "neutral",
+      "trending_score": 0.61,
+      "size": 542,
+      "color": "#96ceb4",
+      "children": [
+        {
+          "name": "區塊鏈應用",
+          "value": 245,
+          "sentiment": "positive",
+          "posts": 8
+        },
+        {
+          "name": "數位貨幣",
+          "value": 167,
+          "sentiment": "neutral",
+          "posts": 6
+        },
+        {
+          "name": "支付系統",
+          "value": 130,
+          "sentiment": "positive",
+          "posts": 5
+        }
+      ]
+    },
+    {
+      "topic_id": 5,
+      "topic_name": "永續發展",
+      "topic_keywords": ["ESG", "永續", "綠能", "環保", "碳中和"],
+      "post_count": 16,
+      "average_heat_density": 46.8,
+      "total_interactions": 421,
+      "dominant_sentiment": "positive",
+      "trending_score": 0.55,
+      "size": 421,
+      "color": "#feca57",
+      "children": [
+        {
+          "name": "綠色能源",
+          "value": 198,
+          "sentiment": "positive",
+          "posts": 7
+        },
+        {
+          "name": "ESG投資",
+          "value": 143,
+          "sentiment": "positive",
+          "posts": 5
+        },
+        {
+          "name": "碳權交易",
+          "value": 80,
+          "sentiment": "neutral",
+          "posts": 4
+        }
+      ]
+    },
+    {
+      "topic_id": 6,
+      "topic_name": "消費趨勢",
+      "topic_keywords": ["消費", "零售", "電商", "品牌", "市場"],
+      "post_count": 13,
+      "average_heat_density": 41.2,
+      "total_interactions": 298,
+      "dominant_sentiment": "neutral",
+      "trending_score": 0.48,
+      "size": 298,
+      "color": "#ff9ff3",
+      "children": [
+        {
+          "name": "電商平台",
+          "value": 134,
+          "sentiment": "positive",
+          "posts": 5
+        },
+        {
+          "name": "消費行為",
+          "value": 98,
+          "sentiment": "neutral",
+          "posts": 4
+        },
+        {
+          "name": "品牌經營",
+          "value": 66,
+          "sentiment": "positive",
+          "posts": 4
+        }
+      ]
+    }
+  ],
+  "dashboard_stats": {
+    "top_trending_topics": [
+      {
+        "name": "AI與科技創新",
+        "growth_rate": 25.6,
+        "posts_today": 8
+      },
+      {
+        "name": "投資理財", 
+        "growth_rate": 18.3,
+        "posts_today": 6
+      },
+      {
+        "name": "台灣經濟",
+        "growth_rate": 12.7,
+        "posts_today": 4
+      }
+    ],
+    "top_users": [
+      {
+        "username": "deehsiang",
+        "total_interactions": 289,
+        "posts_count": 12,
+        "avg_engagement": 24.1
+      },
+      {
+        "username": "jackieyutw", 
+        "total_interactions": 267,
+        "posts_count": 10,
+        "avg_engagement": 26.7
+      },
+      {
+        "username": "unclestocknotes",
+        "total_interactions": 245,
+        "posts_count": 11,
+        "avg_engagement": 22.3
+      }
+    ],
+    "engagement_summary": {
+      "total_likes": 1678,
+      "total_replies": 789,
+      "total_reposts": 380,
+      "avg_engagement_rate": 1.54,
+      "viral_posts_count": 8
+    },
+    "time_analysis": {
+      "peak_hours": ["09:00", "12:00", "15:00", "20:00"],
+      "most_active_day": "2025-08-05",
+      "engagement_velocity": 2.3
+    }
+  },
+  "chart_configs": {
+    "heat_bubble": {
+      "canvas_width": 800,
+      "canvas_height": 600,
+      "min_radius": 20,
+      "max_radius": 100,
+      "heat_color_scale": ["#3498db", "#f39c12", "#e74c3c"],
+      "animation_duration": 1000
+    },
+    "trend_river": {
+      "canvas_width": 900,
+      "canvas_height": 400,
+      "margin": {"top": 20, "right": 30, "bottom": 40, "left": 50},
+      "color_palette": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57"],
+      "curve_tension": 0.3
+    },
+    "topic_treemap": {
+      "canvas_width": 800,
+      "canvas_height": 500,
+      "padding": 2,
+      "color_scale": ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57", "#ff9ff3"],
+      "animation_duration": 800
+    }
+  }
+}

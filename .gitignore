@@ -1,0 +1,37 @@
+# Dependency directories
+node_modules/
+frontend-app/node_modules/
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Next.js build output
+frontend-app/.next/
+frontend-app/out/
+
+# Environment variables - NEVER commit secrets!
+.env
+.env.local
+frontend-app/.env.local
+
+# Log files
+*.log
+process_data.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+.vscode/
+.idea/
+
+# User-specific tool configuration
+.claude/
