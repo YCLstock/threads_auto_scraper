@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured, RawPost, ProcessedPostMetric, ProcessedTopicSummary, ProcessedKeywordTrend } from './supabase'
+import { supabase, isSupabaseConfigured, ProcessedKeywordTrend } from './supabase'
 
 // 獲取熱度氣泡圖數據
 export async function getHeatBubbleData() {
@@ -68,17 +68,12 @@ export async function getKeywordTrendsData() {
     }
 
     // 按關鍵詞分組數據
-    const keywordGroups: { [key: string]: any[] } = {}
+    const keywordGroups: { [key: string]: ProcessedKeywordTrend[] } = {}
     data?.forEach(trend => {
       if (!keywordGroups[trend.keyword]) {
         keywordGroups[trend.keyword] = []
       }
-      keywordGroups[trend.keyword].push({
-        date: trend.date,
-        post_count: trend.post_count,
-        total_interactions: trend.total_interactions,
-        momentum_score: trend.momentum_score
-      })
+      keywordGroups[trend.keyword].push(trend)
     })
 
     // 轉換為前端需要的格式
@@ -185,7 +180,7 @@ export async function testConnection() {
   }
 
   try {
-    const { data, error } = await supabase
+    const { data: _data, error } = await supabase
       .from('raw_posts')
       .select('post_id')
       .limit(1)

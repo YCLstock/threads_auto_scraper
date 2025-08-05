@@ -24,7 +24,7 @@ export interface RawPost {
   likes: number
   replies: number
   reposts: number
-  images?: any[]
+  images?: string[]
   post_url?: string
   scraped_at: string
   created_at: string

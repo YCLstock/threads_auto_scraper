@@ -9,7 +9,6 @@ import TrendRiverChart from '@/components/charts/TrendRiverChart'
 import TopicTreemap from '@/components/charts/TopicTreemap'
 import StatsCard from '@/components/ui/StatsCard'
 import mockData from '@/mock-data.json'
-// Keep api imports for when we revert
 import { 
   getHeatBubbleData, 
   getKeywordTrendsData, 
@@ -19,41 +18,86 @@ import {
 } from '@/lib/api'
 
 interface DashboardData {
-  metadata: any
-  heat_bubble_data: any[]
-  keyword_trends_data: any[]
-  topic_treemap_data: any[]
-  dashboard_stats: any
+  metadata: {
+    generated_at: string;
+    data_range: { start_date: string; end_date: string };
+    total_posts: number;
+    total_users: number;
+    total_interactions: number;
+  };
+  heat_bubble_data: any[];
+  keyword_trends_data: any[];
+  topic_treemap_data: any[];
+  dashboard_stats: {
+    top_trending_topics: { name: string; growth_rate: number; posts_today: number }[];
+    top_users: { username: string; total_interactions: number; posts_count: number }[];
+  };
 }
 
 export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null)
   const [activeChart, setActiveChart] = useState<'bubble' | 'river' | 'treemap'>('bubble')
   const [isLoading, setIsLoading] = useState(true)
-  // const [useRealData, setUseRealData] = useState(false) // Temporarily disabled for testing
-  // const [connectionStatus, setConnectionStatus] = useState<'unknown' | 'connected' | 'failed'>('unknown') // Temporarily disabled for testing
+  const [useRealData, setUseRealData] = useState(false)
+  const [connectionStatus, setConnectionStatus] = useState<'unknown' | 'connected' | 'failed'>('unknown')
 
-  // Temporarily disabled for testing
-  // const checkConnection = async () => {
-  //   const isConnected = await testConnection()
-  //   setConnectionStatus(isConnected ? 'connected' : 'failed')
-  //   return isConnected
-  // }
+  // 測試數據庫連接
+  const checkConnection = async () => {
+    const isConnected = await testConnection()
+    setConnectionStatus(isConnected ? 'connected' : 'failed')
+    return isConnected
+  }
 
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true)
       
-      // Forcing mock data for testing purposes
-      console.log("Forcing mock data load for testing.");
-      await new Promise(resolve => setTimeout(resolve, 800)) // 模擬加載延遲
-      setData(mockData as DashboardData)
+      if (useRealData) {
+        try {
+          // 嘗試連接數據庫並獲取真實數據
+          const isConnected = await checkConnection()
+          
+          if (isConnected) {
+            const [heatData, trendsData, topicsData, statsData] = await Promise.all([
+              getHeatBubbleData(),
+              getKeywordTrendsData(), 
+              getTopicTreemapData(),
+              getDashboardStats()
+            ])
+
+            setData({
+              metadata: {
+                generated_at: new Date().toISOString(),
+                data_source: 'supabase',
+                ...statsData
+              } as any,
+              heat_bubble_data: heatData,
+              keyword_trends_data: trendsData,
+              topic_treemap_data: topicsData,
+              dashboard_stats: statsData as any
+            })
+          } else {
+            // 連接失敗，回退到 mock 數據
+            console.warn('Database connection failed, falling back to mock data')
+            setUseRealData(false)
+            setData(mockData as DashboardData)
+          }
+        } catch (error) {
+          console.error('Failed to load real data:', error)
+          setUseRealData(false)
+          setData(mockData as DashboardData)
+        }
+      } else {
+        // 使用 mock 數據
+        await new Promise(resolve => setTimeout(resolve, 800)) // 模擬加載延遲
+        setData(mockData as DashboardData)
+      }
       
       setIsLoading(false)
     }
 
     loadData()
-  }, []) // Empty dependency array to run only once
+  }, [useRealData])
 
   if (isLoading) {
     return (
@@ -103,12 +147,48 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              {/* 數據源切換 - Temporarily disabled for testing */}
+              {/* 數據源切換 */}
+              <div className="flex items-center space-x-2 bg-white rounded-lg p-2 shadow-sm border">
+                <button
+                  onClick={() => setUseRealData(false)}
+                  className={`flex items-center space-x-2 px-3 py-1 rounded-md text-sm transition-colors ${
+                    !useRealData 
+                      ? 'bg-blue-100 text-blue-700' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <Database className="h-4 w-4" />
+                  <span>Mock 數據</span>
+                </button>
+                <button
+                  onClick={() => setUseRealData(true)}
+                  className={`flex items-center space-x-2 px-3 py-1 rounded-md text-sm transition-colors ${
+                    useRealData 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {connectionStatus === 'connected' ? (
+                    <Wifi className="h-4 w-4" />
+                  ) : connectionStatus === 'failed' ? (
+                    <WifiOff className="h-4 w-4" />
+                  ) : (
+                    <Database className="h-4 w-4" />
+                  )}
+                  <span>真實數據</span>
+                </button>
+              </div>
               
               <div className="text-sm text-gray-500">
                 最后更新: {new Date().toLocaleTimeString()}
               </div>
-              <div className={`h-3 w-3 rounded-full bg-blue-500`}></div>
+              <div className={`h-3 w-3 rounded-full animate-pulse ${
+                useRealData && connectionStatus === 'connected' 
+                  ? 'bg-green-500' 
+                  : useRealData && connectionStatus === 'failed'
+                  ? 'bg-red-500'
+                  : 'bg-blue-500'
+              }`}></div>
             </div>
           </div>
         </div>
@@ -263,7 +343,7 @@ export default function Dashboard() {
                 今日热门话题
               </h3>
               <div className="space-y-4">
-                {data.dashboard_stats.top_trending_topics.map((topic: any, index: number) => (
+                {data.dashboard_stats.top_trending_topics.map((topic, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                       <h4 className="font-medium text-gray-900">{topic.name}</h4>
@@ -284,7 +364,7 @@ export default function Dashboard() {
                 活跃用户排行
               </h3>
               <div className="space-y-4">
-                {data.dashboard_stats.top_users.map((user: any, index: number) => (
+                {data.dashboard_stats.top_users.map((user, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center">
                       <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">

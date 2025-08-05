@@ -76,10 +76,10 @@ export default function HeatBubbleChart({ data }: HeatBubbleChartProps) {
       .domain(d3.extent(data, d => d.heat_density) as [number, number])
 
     // 力导向模拟
-    const simulation = d3.forceSimulation(data as any)
+    const simulation = d3.forceSimulation(data as d3.SimulationNodeDatum[])
       .force('charge', d3.forceManyBody().strength(-50))
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius((d: any) => radiusScale(d.total_interactions) + 2))
+      .force('collision', d3.forceCollide().radius((d: any) => radiusScale((d as BubbleData).total_interactions) + 2))
       .force('x', d3.forceX(width / 2).strength(0.1))
       .force('y', d3.forceY(height / 2).strength(0.1))
 
@@ -137,11 +137,11 @@ export default function HeatBubbleChart({ data }: HeatBubbleChartProps) {
         setTooltip({ x, y, visible: true })
         setSelectedBubble(d)
       })
-      .on('mouseleave', function() {
+      .on('mouseleave', function(d) {
         d3.select(this).select('circle')
           .transition()
           .duration(200)
-          .attr('r', d => radiusScale(d.total_interactions))
+          .attr('r', radiusScale(d.total_interactions))
           .style('opacity', 0.8)
 
         setTooltip(prev => ({ ...prev, visible: false }))

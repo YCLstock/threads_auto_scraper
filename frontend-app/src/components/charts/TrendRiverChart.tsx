@@ -23,7 +23,7 @@ interface TrendRiverChartProps {
 export default function TrendRiverChart({ data }: TrendRiverChartProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null)
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: any }>({
+  const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: TrendData | (TrendData['data'][0] & { keyword: string, color: string }) }>({
     x: 0,
     y: 0,
     visible: false
@@ -63,7 +63,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
     // 创建堆叠数据
     const stackData = allDates.map(date => {
-      const dateData: any = { date: parseDate(date) }
+      const dateData: { date: Date | null; [key: string]: number | Date | null } = { date: parseDate(date) }
       data.forEach(keyword => {
         const found = keyword.data.find(item => item.date === date)
         dateData[keyword.keyword] = found ? found.post_count : 0
@@ -71,20 +71,20 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       return dateData
     })
 
-    const stack = d3.stack<any>()
+    const stack = d3.stack< { date: Date | null; [key: string]: number | Date | null }>()
       .keys(data.map(d => d.keyword))
       .order(d3.stackOrderNone)
       .offset(d3.stackOffsetWiggle)
 
-    const stackedData = stack(stackData)
+    const stackedData = stack(stackData as any)
 
     // 更新y比例尺以适应堆叠数据
     const yExtent = d3.extent(stackedData.flat().flat()) as [number, number]
     yScale.domain(yExtent).nice()
 
     // 创建区域生成器
-    const area = d3.area<any>()
-      .x(d => xScale(d.data.date))
+    const area = d3.area<d3.SeriesPoint<{ date: Date | null; [key: string]: number | Date | null }>>()
+      .x(d => xScale(d.data.date as Date))
       .y0(d => yScale(d[0]))
       .y1(d => yScale(d[1]))
       .curve(d3.curveBasis)
@@ -115,7 +115,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .enter()
       .append('path')
       .attr('class', 'river-path')
-      .attr('d', area)
+      .attr('d', area as any)
       .style('fill', (d, i) => `url(#gradient-${data[i].keyword})`)
       .style('stroke', (d, i) => data[i].color)
       .style('stroke-width', 1)
@@ -135,7 +135,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
     // 鼠标事件处理
     paths
-      .on('mouseenter', function(event, d) {
+      .on('mouseenter', function(event, d: d3.Series<{ [key: string]: number; }, { [key: string]: number; }>) {
         const keywordIndex = stackedData.indexOf(d)
         const keyword = data[keywordIndex]
         const [x, y] = d3.pointer(event, document.body)
@@ -145,7 +145,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
         // 高亮当前路径
         d3.selectAll('.river-path')
-          .style('opacity', path => path.key === keyword.keyword ? 1 : 0.2)
+          .style('opacity', (path: any) => path.key === keyword.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
@@ -235,7 +235,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .on('mouseenter', function(event, d) {
         setSelectedKeyword(d.keyword)
         d3.selectAll('.river-path')
-          .style('opacity', path => path.key === d.keyword ? 1 : 0.2)
+          .style('opacity', (path: any) => path.key === d.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
@@ -327,26 +327,26 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
         >
           <div className="space-y-1">
             {tooltip.data.keyword && (
-              <div className="font-bold" style={{ color: tooltip.data.color }}>
+              <div className="font-bold" style={{ color: (tooltip.data as any).color }}>
                 {tooltip.data.keyword}
               </div>
             )}
-            {tooltip.data.date && (
+            {(tooltip.data as any).date && (
               <div className="text-sm text-gray-300">
-                日期: {new Date(tooltip.data.date).toLocaleDateString()}
+                日期: {new Date((tooltip.data as any).date).toLocaleDateString()}
               </div>
             )}
             <div className="text-sm">
-              贴文数: {tooltip.data.post_count || tooltip.data.total_mentions}
+              贴文数: {(tooltip.data as any).post_count || (tooltip.data as any).total_mentions}
             </div>
-            {tooltip.data.total_interactions && (
+            {(tooltip.data as any).total_interactions && (
               <div className="text-sm">
-                互动数: {tooltip.data.total_interactions.toLocaleString()}
+                互动数: {(tooltip.data as any).total_interactions.toLocaleString()}
               </div>
             )}
-            {tooltip.data.momentum_score && (
+            {(tooltip.data as any).momentum_score && (
               <div className="text-sm">
-                动量分数: {tooltip.data.momentum_score.toFixed(2)}
+                动量分数: {(tooltip.data as any).momentum_score.toFixed(2)}
               </div>
             )}
           </div>
