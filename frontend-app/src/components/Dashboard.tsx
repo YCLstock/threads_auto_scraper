@@ -24,23 +24,7 @@ import {
   DashboardStats 
 } from '@/lib/types';
 
-interface DashboardData {
-  metadata: {
-    generated_at: string;
-    data_range: { start_date: string; end_date: string };
-    total_posts: number;
-    total_users: number;
-    total_interactions: number;
-    data_source?: string;
-  };
-  heat_bubble_data: HeatBubbleData[];
-  keyword_trends_data: KeywordTrendData[];
-  topic_treemap_data: TopicTreemapData[];
-  dashboard_stats: DashboardStats & {
-    top_trending_topics: { name: string; growth_rate: number; posts_today: number }[];
-    top_users: { username: string; total_interactions: number; posts_count: number }[];
-  };
-}
+
 
 export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null)
@@ -77,12 +61,15 @@ export default function Dashboard() {
               metadata: {
                 generated_at: new Date().toISOString(),
                 data_source: 'supabase',
-                ...statsData
               },
               heat_bubble_data: heatData,
               keyword_trends_data: trendsData,
               topic_treemap_data: topicsData,
-              dashboard_stats: statsData
+              dashboard_stats: {
+                ...statsData,
+                top_trending_topics: [], // Placeholder, as getDashboardStats doesn't return this
+                top_users: [], // Placeholder, as getDashboardStats doesn't return this
+              }
             })
           } else {
             // 連接失敗，回退到 mock 數據
@@ -151,7 +138,7 @@ export default function Dashboard() {
                 Threads 趋势仪表板
               </h1>
               <p className="text-gray-600">
-                分析时间范围: {new Date(data.metadata.data_range.start_date).toLocaleDateString()} - {new Date(data.metadata.data_range.end_date).toLocaleDateString()}
+                分析时间范围: {new Date(data.dashboard_stats.data_range.start_date).toLocaleDateString()} - {new Date(data.dashboard_stats.data_range.end_date).toLocaleDateString()}
               </p>
             </div>
             <div className="flex items-center space-x-4">
@@ -213,7 +200,7 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <StatsCard
               title="总贴文数"
-              value={data.metadata.total_posts.toLocaleString()}
+              value={data.dashboard_stats.total_posts.toLocaleString()}
               change="+12.5%"
               trend="up"
               icon={<MessageCircle className="h-6 w-6" />}
@@ -221,7 +208,7 @@ export default function Dashboard() {
             />
             <StatsCard
               title="总互动数"
-              value={data.metadata.total_interactions.toLocaleString()}
+              value={data.dashboard_stats.total_interactions.toLocaleString()}
               change="+18.3%"
               trend="up"
               icon={<Activity className="h-6 w-6" />}
@@ -229,7 +216,7 @@ export default function Dashboard() {
             />
             <StatsCard
               title="活跃用户"
-              value={data.metadata.total_users.toString()}
+              value={data.dashboard_stats.total_users.toString()}
               change="+5.2%"
               trend="up"
               icon={<Users className="h-6 w-6" />}

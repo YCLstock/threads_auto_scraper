@@ -46,21 +46,20 @@ export interface DashboardStats {
   total_interactions: number;
   active_topics: number;
   trending_keywords: number;
+  total_users: number;
+  data_range: { start_date: string; end_date: string };
   last_updated: string;
 }
 
 export interface DashboardData {
   metadata: {
     generated_at: string;
-    data_range: { start_date: string; end_date: string };
-    total_posts: number;
-    total_users: number;
-    total_interactions: number;
+    data_source?: string;
   };
   heat_bubble_data: HeatBubbleData[];
   keyword_trends_data: KeywordTrendData[];
   topic_treemap_data: TopicTreemapData[];
-  dashboard_stats: {
+  dashboard_stats: DashboardStats & {
     top_trending_topics: { name: string; growth_rate: number; posts_today: number }[];
     top_users: { username: string; total_interactions: number; posts_count: number }[];
   };

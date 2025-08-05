@@ -135,15 +135,19 @@ export async function getTopicTreemapData() {
 export async function getDashboardStats() {
   try {
     // 並行獲取各種統計數據
-    const [postsResult, metricsResult, topicsResult, trendsResult] = await Promise.all([
+    const [postsResult, metricsResult, topicsResult, trendsResult, usersResult, dateRangeResult] = await Promise.all([
       supabase.from('raw_posts').select('post_id', { count: 'exact', head: true }),
       supabase.from('processed_post_metrics').select('total_interactions').order('created_at', { ascending: false }).limit(1000),
       supabase.from('processed_topic_summary').select('topic_id', { count: 'exact', head: true }),
-      supabase.from('processed_keyword_trends').select('keyword').order('created_at', { ascending: false }).limit(500)
+      supabase.from('processed_keyword_trends').select('keyword').order('created_at', { ascending: false }).limit(500),
+      supabase.from('raw_posts').select('username', { count: 'exact', head: true }),
+      supabase.from('raw_posts').select('timestamp', { head: true, order: 'timestamp.asc' }).limit(1),
+      supabase.from('raw_posts').select('timestamp', { head: true, order: 'timestamp.desc' }).limit(1)
     ])
 
     const totalPosts = postsResult.count || 0
     const totalTopics = topicsResult.count || 0
+    const totalUsers = usersResult.count || 0
     
     // 計算總互動數
     const totalInteractions = metricsResult.data?.reduce((sum, metric) => sum + metric.total_interactions, 0) || 0
@@ -152,11 +156,16 @@ export async function getDashboardStats() {
     const uniqueKeywords = new Set(trendsResult.data?.map(trend => trend.keyword) || [])
     const activeKeywords = uniqueKeywords.size
 
+    const startDate = dateRangeResult[0]?.data?.[0]?.timestamp || new Date().toISOString()
+    const endDate = dateRangeResult[1]?.data?.[0]?.timestamp || new Date().toISOString()
+
     return {
       total_posts: totalPosts,
       total_interactions: totalInteractions,
       active_topics: totalTopics,
       trending_keywords: activeKeywords,
+      total_users: totalUsers,
+      data_range: { start_date: startDate, end_date: endDate },
       last_updated: new Date().toISOString()
     }
   } catch (error) {
