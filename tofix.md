@@ -1,74 +1,48 @@
-[00:14:19.337] Running build in Washington, D.C., USA (East) – iad1
-[00:14:19.338] Build machine configuration: 2 cores, 8 GB
-[00:14:19.355] Cloning github.com/YCLstock/threads_auto_scraper (Branch: master, Commit: 9f26380)
-[00:14:19.500] Previous build caches not available
-[00:14:19.690] Cloning completed: 335.000ms
-[00:14:22.807] Running "vercel build"
-[00:14:23.278] Vercel CLI 44.7.2
-[00:14:23.896] Installing dependencies...
-[00:14:38.632] 
-[00:14:38.639] added 447 packages in 14s
-[00:14:38.640] 
-[00:14:38.643] 142 packages are looking for funding
-[00:14:38.643]   run `npm fund` for details
-[00:14:38.791] Running "npm run build"
-[00:14:38.914] 
-[00:14:38.915] > frontend-app@0.1.0 build
-[00:14:38.915] > next build
-[00:14:38.915] 
-[00:14:40.062] Attention: Next.js now collects completely anonymous telemetry regarding usage.
-[00:14:40.063] This information is used to shape Next.js' roadmap and prioritize features.
-[00:14:40.063] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-[00:14:40.063] https://nextjs.org/telemetry
-[00:14:40.064] 
-[00:14:40.177]    ▲ Next.js 15.4.5
-[00:14:40.179] 
-[00:14:40.204]    Creating an optimized production build ...
-[00:15:00.437]  ✓ Compiled successfully in 17.0s
-[00:15:00.443]    Linting and checking validity of types ...
-[00:15:05.174] 
-[00:15:05.176] Failed to compile.
-[00:15:05.177] 
-[00:15:05.177] ./src/components/charts/TopicTreemap.tsx
-[00:15:05.177] 101:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.183] 101:67  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.183] 106:45  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.184] 106:61  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.184] 107:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.186] 107:62  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.186] 122:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.187] 122:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.189] 126:29  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.189] 126:45  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.189] 127:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.189] 127:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.190] 145:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.190] 145:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.190] 146:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.190] 146:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.191] 155:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.191] 155:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.195] 156:30  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.195] 156:46  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.195] 177:31  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.196] 177:47  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.196] 193:26  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.196] 193:42  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.196] 224:33  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.197] 224:49  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.197] 225:34  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.197] 225:50  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.197] 250:44  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.197] 263:32  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.198] 263:49  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.199] 263:91  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.199] 263:105  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.203] 263:130  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.211] 263:144  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.214] 268:44  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.214] 278:49  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.215] 278:66  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.215] 282:39  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
-[00:15:05.215] 
-[00:15:05.215] info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
-[00:15:05.231] Error: Command "npm run build" exited with 1
+[00:23:57.978] Running build in Washington, D.C., USA (East) – iad1
+[00:23:57.978] Build machine configuration: 2 cores, 8 GB
+[00:23:58.000] Cloning github.com/YCLstock/threads_auto_scraper (Branch: master, Commit: 62a7a58)
+[00:23:58.161] Previous build caches not available
+[00:23:58.318] Cloning completed: 318.000ms
+[00:24:00.700] Running "vercel build"
+[00:24:01.143] Vercel CLI 44.7.2
+[00:24:01.762] Installing dependencies...
+[00:24:16.296] 
+[00:24:16.297] added 447 packages in 14s
+[00:24:16.297] 
+[00:24:16.297] 142 packages are looking for funding
+[00:24:16.297]   run `npm fund` for details
+[00:24:16.418] Running "npm run build"
+[00:24:16.660] 
+[00:24:16.660] > frontend-app@0.1.0 build
+[00:24:16.661] > next build
+[00:24:16.661] 
+[00:24:17.865] Attention: Next.js now collects completely anonymous telemetry regarding usage.
+[00:24:17.866] This information is used to shape Next.js' roadmap and prioritize features.
+[00:24:17.866] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+[00:24:17.866] https://nextjs.org/telemetry
+[00:24:17.866] 
+[00:24:17.973]    ▲ Next.js 15.4.5
+[00:24:17.974] 
+[00:24:18.000]    Creating an optimized production build ...
+[00:24:38.029]  ✓ Compiled successfully in 16.0s
+[00:24:38.035]    Linting and checking validity of types ...
+[00:24:45.380] Failed to compile.
+[00:24:45.381] 
+[00:24:45.381] ./src/components/charts/TopicTreemap.tsx:257:25
+[00:24:45.382] Type error: No overload matches this call.
+[00:24:45.382]   Overload 1 of 3, '(typenames: string, listener: null): Selection<SVGGElement, HierarchyNode<HierarchyData>, SVGSVGElement | null, unknown>', gave the following error.
+[00:24:45.382]     Argument of type '(this: SVGGElement, event: any, d: TreemapNode) => void' is not assignable to parameter of type 'null'.
+[00:24:45.382]   Overload 2 of 3, '(typenames: string, listener: (this: SVGGElement, event: any, d: HierarchyNode<HierarchyData>) => void, options?: any): Selection<SVGGElement, HierarchyNode<...>, SVGSVGElement | null, unknown>', gave the following error.
+[00:24:45.382]     Argument of type '(this: SVGGElement, event: any, d: TreemapNode) => void' is not assignable to parameter of type '(this: SVGGElement, event: any, d: HierarchyNode<HierarchyData>) => void'.
+[00:24:45.383]       Types of parameters 'd' and 'd' are incompatible.
+[00:24:45.383]         Type 'HierarchyNode<HierarchyData>' is missing the following properties from type 'TreemapNode': x0, y0, x1, y1
+[00:24:45.383] 
+[00:24:45.383] [0m [90m 255 |[39m     [90m// 鼠标事件处理[39m
+[00:24:45.383]  [90m 256 |[39m     cells
+[00:24:45.384] [31m[1m>[22m[39m[90m 257 |[39m       [33m.[39mon([32m'mouseenter'[39m[33m,[39m [36mfunction[39m(event[33m,[39m d[33m:[39m [33mTreemapNode[39m) {
+[00:24:45.384]  [90m     |[39m                         [31m[1m^[22m[39m
+[00:24:45.384]  [90m 258 |[39m         [36mconst[39m [x[33m,[39m y] [33m=[39m d3[33m.[39mpointer(event[33m,[39m document[33m.[39mbody)
+[00:24:45.384]  [90m 259 |[39m         
+[00:24:45.384]  [90m 260 |[39m         d3[33m.[39mselect([36mthis[39m)[33m.[39mselect([32m'rect'[39m)[0m
+[00:24:45.406] Next.js build worker exited with code: 1 and signal: null
+[00:24:45.424] Error: Command "npm run build" exited with 1

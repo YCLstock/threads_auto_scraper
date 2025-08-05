@@ -254,7 +254,8 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
 
     // 鼠标事件处理
     cells
-      .on('mouseenter', function(event, d: TreemapNode) {
+      .on('mouseenter', function(event, d) {
+        const node = d as TreemapNode
         const [x, y] = d3.pointer(event, document.body)
         
         d3.select(this).select('rect')
@@ -267,12 +268,13 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
           .transition()
           .duration(200)
           .attr('transform', 
-            `translate(${(d as TreemapNode).x0},${(d as TreemapNode).y0}) scale(1.02) translate(${-((d as TreemapNode).x1-(d as TreemapNode).x0)*0.01},${-((d as TreemapNode).y1-(d as TreemapNode).y0)*0.01})`
+            `translate(${node.x0},${node.y0}) scale(1.02) translate(${-(node.x1-node.x0)*0.01},${-(node.y1-node.y0)*0.01})`
           )
 
-        setTooltip({ x, y, visible: true, data: d.data.data })
+        setTooltip({ x, y, visible: true, data: node.data.data })
       })
-      .on('mouseleave', function(event, d: TreemapNode) {
+      .on('mouseleave', function(event, d) {
+        const node = d as TreemapNode
         d3.select(this).select('rect')
           .transition()
           .duration(200)
@@ -282,13 +284,14 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr('transform', `translate(${(d as TreemapNode).x0},${(d as TreemapNode).y0})`)
+          .attr('transform', `translate(${node.x0},${node.y0})`)
 
         setTooltip(prev => ({ ...prev, visible: false }))
       })
-      .on('click', function(event, d: TreemapNode) {
+      .on('click', function(event, d) {
+        const node = d as TreemapNode
         // 点击时可以展开详细信息或进行钻取
-        console.log('Topic clicked:', d.data.data)
+        console.log('Topic clicked:', node.data.data)
       })
 
     // 标题
