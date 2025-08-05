@@ -3,40 +3,22 @@
 import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import { motion } from 'framer-motion'
-
-interface TopicData {
-  topic_id: number
-  topic_name: string
-  topic_keywords: string[]
-  post_count: number
-  average_heat_density: number
-  total_interactions: number
-  dominant_sentiment: string
-  trending_score: number
-  size: number
-  color: string
-  children?: {
-    name: string
-    value: number
-    sentiment: string
-    posts: number
-  }[]
-}
+import { TopicTreemapData } from '@/lib/types'
 
 interface TopicTreemapProps {
-  data: TopicData[]
+  data: TopicTreemapData[]
 }
 
 interface HierarchyData {
     name: string;
     value?: number;
-    data?: TopicData;
+    data?: TopicTreemapData;
     children?: HierarchyData[];
 }
 
 export default function TopicTreemap({ data }: TopicTreemapProps) {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: TopicData }>({
+  const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: TopicTreemapData }>({
     x: 0,
     y: 0,
     visible: false
@@ -123,7 +105,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
     const rects = cells.append('rect')
       .attr('width', d => Math.max(0, d.x1 - d.x0))
       .attr('height', d => Math.max(0, d.y1 - d.y0))
-      .attr('fill', d => `url(#gradient-${(d.data.data as TopicData).topic_id})`)
+      .attr('fill', d => `url(#gradient-${(d.data.data as TopicTreemapData).topic_id})`)
       .attr('stroke', '#fff')
       .attr('stroke-width', 2)
       .style('opacity', 0)
@@ -167,7 +149,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
       .style('fill', '#fff')
       .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.7)')
       .style('opacity', 0)
-      .text(d => `${(d.data.data as TopicData).post_count} 篇`)
+      .text(d => `${(d.data.data as TopicTreemapData).post_count} 篇`)
 
     const interactionLabels = cells.append('text')
       .attr('x', d => (d.x1 - d.x0) / 2)
@@ -177,7 +159,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
       .style('fill', '#fff')
       .style('text-shadow', '1px 1px 2px rgba(0,0,0,0.7)')
       .style('opacity', 0)
-      .text(d => `${(d.data.data as TopicData).total_interactions.toLocaleString()} 互动`)
+      .text(d => `${(d.data.data as TopicTreemapData).total_interactions.toLocaleString()} 互动`)
 
     // 统计标签动画
     statsLabels.transition()
@@ -195,7 +177,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
       .attr('cx', d => (d.x1 - d.x0) - 15)
       .attr('cy', 15)
       .attr('r', 6)
-      .attr('fill', d => sentimentColors[(d.data.data as TopicData).dominant_sentiment as keyof typeof sentimentColors] || sentimentColors.neutral)
+      .attr('fill', d => sentimentColors[(d.data.data as TopicTreemapData).dominant_sentiment as keyof typeof sentimentColors] || sentimentColors.neutral)
       .attr('stroke', '#fff')
       .attr('stroke-width', 2)
       .style('opacity', 0)
@@ -211,7 +193,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
         const x = (d.x1 - d.x0) - 30
         const y = 15
         const size = 5
-        const trend = (d.data.data as TopicData).trending_score
+        const trend = (d.data.data as TopicTreemapData).trending_score
         if (trend > 0.7) {
           // 向上箭头
           return `M${x},${y+size} L${x+size},${y-size} L${x-size},${y-size} Z`
@@ -224,7 +206,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
         }
       })
       .attr('fill', d => {
-        const trend = (d.data.data as TopicData).trending_score
+        const trend = (d.data.data as TopicTreemapData).trending_score
         return trend > 0.7 ? '#10b981' : trend < 0.3 ? '#ef4444' : '#6b7280'
       })
       .attr('stroke', '#fff')
