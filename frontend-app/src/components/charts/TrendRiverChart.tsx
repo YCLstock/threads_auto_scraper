@@ -10,6 +10,10 @@ interface TrendRiverChartProps {
   data: KeywordTrendData[];
 }
 
+interface RiverPath {
+  key: string;
+}
+
 // Helper function to check if data is a specific data point from the trend
 function isTooltipDataPoint(data: KeywordTrendData | (KeywordTrendData['data'][0] & { keyword: string, color: string })): data is (KeywordTrendData['data'][0] & { keyword: string, color: string }) {
   return 'date' in data && 'post_count' in data; 
@@ -140,7 +144,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
         // 高亮当前路径
         d3.selectAll('.river-path')
-          .style('opacity', (path: d3.Series<{ date: Date | null; [key: string]: number | Date | null; }, string>) => path.key === keyword.keyword ? 1 : 0.2)
+          .style('opacity', (path: RiverPath) => path.key === keyword.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
@@ -230,7 +234,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .on('mouseenter', function(event, d) {
         setSelectedKeyword(d.keyword)
         d3.selectAll('.river-path')
-          .style('opacity', (path: d3.Series<{ date: Date | null; [key: string]: number | Date | null; }, string>) => path.key === d.keyword ? 1 : 0.2)
+          .style('opacity', (path: RiverPath) => path.key === d.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
