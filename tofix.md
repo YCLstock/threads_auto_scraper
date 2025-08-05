@@ -1,49 +1,121 @@
-[00:51:43.517] Running build in Washington, D.C., USA (East) – iad1
-[00:51:43.517] Build machine configuration: 2 cores, 8 GB
-[00:51:43.533] Cloning github.com/YCLstock/threads_auto_scraper (Branch: master, Commit: d2988a6)
-[00:51:43.693] Previous build caches not available
-[00:51:43.838] Cloning completed: 304.000ms
-[00:51:47.405] Running "vercel build"
-[00:51:47.957] Vercel CLI 44.7.2
-[00:51:48.560] Installing dependencies...
-[00:52:03.523] 
-[00:52:03.524] added 447 packages in 15s
-[00:52:03.524] 
-[00:52:03.524] 142 packages are looking for funding
-[00:52:03.525]   run `npm fund` for details
-[00:52:03.788] Running "npm run build"
-[00:52:03.923] 
-[00:52:03.923] > frontend-app@0.1.0 build
-[00:52:03.924] > next build
-[00:52:03.924] 
-[00:52:05.299] Attention: Next.js now collects completely anonymous telemetry regarding usage.
-[00:52:05.300] This information is used to shape Next.js' roadmap and prioritize features.
-[00:52:05.301] You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-[00:52:05.301] https://nextjs.org/telemetry
-[00:52:05.301] 
-[00:52:05.504]    ▲ Next.js 15.4.5
-[00:52:05.504] 
-[00:52:05.594]    Creating an optimized production build ...
-[00:52:26.576]  ✓ Compiled successfully in 17.0s
-[00:52:26.583]    Linting and checking validity of types ...
-[00:52:33.993] Failed to compile.
-[00:52:33.994] 
-[00:52:33.994] ./src/components/charts/TrendRiverChart.tsx:160:19
-[00:52:33.994] Type error: No overload matches this call.
-[00:52:33.994]   Overload 1 of 3, '(format: null): Axis<Date | NumberValue>', gave the following error.
-[00:52:33.994]     Argument of type '(date: Date) => string' is not assignable to parameter of type 'null'.
-[00:52:33.994]   Overload 2 of 3, '(format: (domainValue: Date | NumberValue, index: number) => string): Axis<Date | NumberValue>', gave the following error.
-[00:52:33.994]     Argument of type '(date: Date) => string' is not assignable to parameter of type '(domainValue: Date | NumberValue, index: number) => string'.
-[00:52:33.995]       Types of parameters 'date' and 'domainValue' are incompatible.
-[00:52:33.995]         Type 'Date | NumberValue' is not assignable to type 'Date'.
-[00:52:33.995]           Type 'number' is not assignable to type 'Date'.
-[00:52:33.995] 
-[00:52:33.995] [0m [90m 158 |[39m     [90m// 创建坐标轴[39m
-[00:52:33.995]  [90m 159 |[39m     [36mconst[39m xAxis [33m=[39m d3[33m.[39maxisBottom(xScale)
-[00:52:33.995] [31m[1m>[22m[39m[90m 160 |[39m       [33m.[39mtickFormat(formatDate)
-[00:52:33.995]  [90m     |[39m                   [31m[1m^[22m[39m
-[00:52:33.996]  [90m 161 |[39m       [33m.[39mticks(d3[33m.[39mtimeDay[33m.[39mevery([35m1[39m))
-[00:52:33.996]  [90m 162 |[39m
-[00:52:33.996]  [90m 163 |[39m     [36mconst[39m yAxis [33m=[39m d3[33m.[39maxisLeft(yScale)[0m
-[00:52:34.017] Next.js build worker exited with code: 1 and signal: null
-[00:52:34.062] Error: Command "npm run build" exited with 1
+Configuring a Build
+When you make a deployment, Vercel builds your project. During this time, Vercel performs a "shallow clone" on your Git repository using the command git clone --depth=10 (...) and fetches ten levels of git commit history. This means that only the latest ten commits are pulled and not the entire repository history.
+
+Vercel automatically configures the build settings for many front-end frameworks, but you can also customize the build according to your requirements.
+
+To configure your Vercel build with customized settings, choose a project from the dashboard and go to its Settings tab.
+
+The Build and Deployment section of the Settings tab offers the following options to customize your build settings:
+
+Framework Settings
+Root Directory
+Node.js Version
+Prioritizing Production Builds
+On-Demand Concurrent Builds
+Framework Settings
+If you'd like to override the settings or specify a different framework, you can do so from the Build & Development Settings section.
+
+
+Framework settings.
+Framework Preset
+You have a wide range of frameworks to choose from, including, Next.js, Svelte, and Nuxt.js. In several use cases, Vercel automatically detects your project's framework and sets the best settings for you.
+
+Inside the Framework Preset settings, use the drop-down menu to select the framework of your choice. This selection will be used for all deployments within your Project. The available frameworks are listed below:
+
+However, if no framework is detected, "Other" will be selected. In this case, the Override toggle for the Build Command will be enabled by default so that you can enter the build command manually. The remaining deployment process is that for default frameworks.
+
+If you would like to override Framework Preset for a specific deployment, add framework to your vercel.json configuration.
+
+Build Command
+Vercel automatically configures the Build Command based on the framework. Depending on the framework, the Build Command can refer to the project’s package.json file.
+
+For example, if Next.js is your framework:
+
+Vercel checks for the build command in scripts and uses this to build the project
+If not, the next build will be triggered as the default Build Command
+If you'd like to override the Build Command for all deployments in your Project, you can turn on the Override toggle and specify the custom command.
+
+If you would like to override the Build Command for a specific deployment, add buildCommand to your vercel.json configuration.
+
+If you update the Override setting, it will be applied on your next deployment.
+
+Output Directory
+After building a project, most frameworks output the resulting build in a directory. Only the contents of this Output Directory will be served statically by Vercel.
+
+If Vercel detects a framework, the output directory will automatically be configured.
+
+If you update the Override setting, it will be applied on your next deployment.
+
+For projects that do not require building, you might want to serve the files in the root directory. In this case, do the following:
+
+Choose "Other" as the Framework Preset. This sets the output directory as public if it exists or . (root directory of the project) otherwise
+If your project doesn’t have a public directory, it will serve the files from the root directory
+Alternatively, you can turn on the Override toggle and leave the field empty (in which case, the build step will be skipped)
+If you would like to override the Output Directory for a specific deployment, add outputDirectory to your vercel.json configuration.
+
+Install Command
+Vercel auto-detects the install command during the build step. It installs dependencies from package.json, including devDependencies (which can be excluded). The install path is set by the root directory.
+
+The install command can be managed in two ways: through a project override, or per-deployment. See manually specifying a package manager for more details.
+
+To learn what package managers are supported on Vercel, see the package manager support documentation.
+
+Corepack
+Corepack is considered experimental and therefore, breaking changes or removal may occur in any future release of Node.js.
+
+Corepack is an experimental tool that allows a Node.js project to pin a specific version of a package manager.
+
+You can enable Corepack by adding an environment variable with name ENABLE_EXPERIMENTAL_COREPACK and value 1 to your Project.
+
+Then, set the packageManager property in the package.json file in the root of your repository. For example:
+
+package.json
+
+{
+  "packageManager": "pnpm@7.5.1"
+}
+A package.json file with pnpm version 7.5.1
+
+Custom Install Command for your API
+The Install Command defined in the Project Settings will be used for front-end frameworks that support Vercel functions for APIs.
+
+If you're using Vercel functions defined in the natively supported api directory, a different Install Command will be used depending on the language of the Vercel Function. You cannot customize this Install Command.
+
+Development Command
+This setting is relevant only if you’re using vercel dev locally to develop your project. Use vercel dev only if you need to use Vercel platform features like Vercel functions. Otherwise, it's recommended to use the development command your framework provides (such as next dev for Next.js).
+
+The Development Command settings allow you to customize the behavior of vercel dev. If Vercel detects a framework, the development command will automatically be configured.
+
+If you’d like to use a custom command for vercel dev, you can turn on the Override toggle. Please note the following:
+
+If you specify a custom command, your command must pass your framework's $PORT variable (which contains the port number). For example, in Next.js you should use: next dev --port $PORT
+If the development command is not specified, vercel dev will fail. If you've selected "Other" as the framework preset, the default development command will be empty
+You must create a deployment and have your local project linked to the project on Vercel (using vercel). Otherwise, vercel dev will not work correctly
+If you would like to override the Development Command, add devCommand to your vercel.json configuration.
+
+Skip Build Step
+Some static projects do not require building. For example, a website with only HTML/CSS/JS source files can be served as-is.
+
+In such cases, you should:
+
+Specify "Other" as the framework preset
+Enable the Override option for the Build Command
+Leave the Build Command empty
+This prevents running the build, and your content is served directly.
+
+Root Directory
+In some projects, the top-level directory of the repository may not be the root directory of the app you’d like to build. For example, your repository might have a front-end directory containing a stand-alone Next.js app.
+
+For such cases, you can specify the project Root Directory. If you do so, please note the following:
+
+Your app will not be able to access files outside of that directory. You also cannot use .. to move up a level
+This setting also applies to Vercel CLI. Instead of running vercel <directory-name> to deploy, specify <directory-name> here so you can just run vercel
+If you update the root directory setting, it will be applied on your next deployment.
+
+Skipping unaffected projects
+In a monorepo, you can skip deployments for projects that were not affected by a commit. To configure:
+
+Navigate to the Build and Deployment page of your Project Settings
+Scroll down to Root Directory
+Enable the Skip deployment switch
+Last updated on July 19, 2025
