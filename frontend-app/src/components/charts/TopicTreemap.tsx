@@ -86,7 +86,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
 
       gradient.append('stop')
         .attr('offset', '100%')
-        .attr('stop-color', d3.color(topic.color)?.darker(0.5) || topic.color)
+        .attr('stop-color', d3.color(topic.color)?.darker(0.5)?.toString() || topic.color)
         .attr('stop-opacity', 1)
     })
 
