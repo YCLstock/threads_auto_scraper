@@ -6,16 +6,14 @@ import { motion } from 'framer-motion'
 
 import { KeywordTrendData } from '@/lib/types';
 
-interface TrendData extends KeywordTrendData {}
-
 interface TrendRiverChartProps {
-  data: TrendData[];
+  data: KeywordTrendData[];
 }
 
 export default function TrendRiverChart({ data }: TrendRiverChartProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null)
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: TrendData | (TrendData['data'][0] & { keyword: string, color: string }) }>({
+  const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: KeywordTrendData | (KeywordTrendData['data'][0] & { keyword: string, color: string }) }>({
     x: 0,
     y: 0,
     visible: false
@@ -63,7 +61,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       return dateData
     })
 
-    const stack = d3.stack<any, { [key: string]: number; }, string>()
+    const stack = d3.stack<typeof stackData[number], string>()
       .keys(data.map(d => d.keyword))
       .order(d3.stackOrderNone)
       .offset(d3.stackOffsetWiggle)
@@ -75,8 +73,8 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
     yScale.domain(yExtent).nice()
 
     // 创建区域生成器
-    const area = d3.area<d3.SeriesPoint<any>>()
-      .x((d: any) => xScale(d.data.date as Date))
+    const area = d3.area<d3.SeriesPoint<{ date: Date | null; [key: string]: number | Date | null }>>()
+      .x(d => xScale(d.data.date as Date))
       .y0(d => yScale(d[0]))
       .y1(d => yScale(d[1]))
       .curve(d3.curveBasis)
@@ -127,7 +125,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
     // 鼠标事件处理
     paths
-      .on('mouseenter', function(event, d: d3.Series<any, any>) {
+      .on('mouseenter', function(event, d: d3.Series<{ date: Date | null; [key: string]: number | Date | null; }, string>) {
         const keywordIndex = stackedData.indexOf(d)
         const keyword = data[keywordIndex]
         const [x, y] = d3.pointer(event, document.body)
@@ -137,7 +135,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
         // 高亮当前路径
         d3.selectAll('.river-path')
-          .style('opacity', (path: any) => path.key === keyword.keyword ? 1 : 0.2)
+          .style('opacity', (path: d3.Series<{ date: Date | null; [key: string]: number | Date | null; }, string>) => path.key === keyword.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
@@ -227,7 +225,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       .on('mouseenter', function(event, d) {
         setSelectedKeyword(d.keyword)
         d3.selectAll('.river-path')
-          .style('opacity', (path: any) => (path as d3.Series<any, any>).key === d.keyword ? 1 : 0.2)
+          .style('opacity', (path: d3.Series<{ date: Date | null; [key: string]: number | Date | null; }, string>) => path.key === d.keyword ? 1 : 0.2)
       })
       .on('mouseleave', function() {
         setSelectedKeyword(null)
