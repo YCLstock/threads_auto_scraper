@@ -118,7 +118,7 @@ export async function getTopicTreemapData() {
       trending_score: topic.trending_score,
       size: topic.total_interactions,
       color: colors[index % colors.length],
-      children: topic.topic_keywords.slice(0, 3).map((keyword, i) => ({
+      children: topic.topic_keywords.slice(0, 3).map((keyword: string, i: number) => ({
         name: keyword,
         value: Math.floor(topic.total_interactions / (i + 2)),
         sentiment: topic.dominant_sentiment,
@@ -135,14 +135,14 @@ export async function getTopicTreemapData() {
 export async function getDashboardStats() {
   try {
     // 並行獲取各種統計數據
-    const [postsResult, metricsResult, topicsResult, trendsResult, usersResult, dateRangeResult] = await Promise.all([
+    const [postsResult, metricsResult, topicsResult, trendsResult, usersResult, startDateResult, endDateResult] = await Promise.all([
       supabase.from('raw_posts').select('post_id', { count: 'exact', head: true }),
       supabase.from('processed_post_metrics').select('total_interactions').order('created_at', { ascending: false }).limit(1000),
       supabase.from('processed_topic_summary').select('topic_id', { count: 'exact', head: true }),
       supabase.from('processed_keyword_trends').select('keyword').order('created_at', { ascending: false }).limit(500),
       supabase.from('raw_posts').select('username', { count: 'exact', head: true }),
-      supabase.from('raw_posts').select('timestamp', { head: true, order: 'timestamp.asc' }).limit(1),
-      supabase.from('raw_posts').select('timestamp', { head: true, order: 'timestamp.desc' }).limit(1)
+      supabase.from('raw_posts').select('timestamp').order('timestamp', { ascending: true }).limit(1),
+      supabase.from('raw_posts').select('timestamp').order('timestamp', { ascending: false }).limit(1)
     ])
 
     const totalPosts = postsResult.count || 0
@@ -156,8 +156,8 @@ export async function getDashboardStats() {
     const uniqueKeywords = new Set(trendsResult.data?.map(trend => trend.keyword) || [])
     const activeKeywords = uniqueKeywords.size
 
-    const startDate = dateRangeResult[0]?.data?.[0]?.timestamp || new Date().toISOString()
-    const endDate = dateRangeResult[1]?.data?.[0]?.timestamp || new Date().toISOString()
+    const startDate = startDateResult?.data?.[0]?.timestamp || new Date().toISOString()
+    const endDate = endDateResult?.data?.[0]?.timestamp || new Date().toISOString()
 
     return {
       total_posts: totalPosts,

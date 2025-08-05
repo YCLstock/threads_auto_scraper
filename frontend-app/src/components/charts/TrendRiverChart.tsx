@@ -157,8 +157,8 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
 
     // 创建坐标轴
     const xAxis = d3.axisBottom(xScale)
-      .tickFormat(formatDate)
-      .ticks(d3.timeDay.every(1))
+      .tickFormat((d: d3.NumberValue) => formatDate(d as Date))
+      .ticks(d3.timeDay.every(1)!)
 
     const yAxis = d3.axisLeft(yScale)
       .ticks(6)
@@ -267,7 +267,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
       points.transition()
         .delay((d, i) => i * 100 + keywordIndex * 200)
         .duration(600)
-        .attr('r', d => Math.sqrt(d.momentum_score) * 3 + 2)
+        .attr('r', d => Math.sqrt(d.post_count / 10) * 3 + 2)
         .style('opacity', 0.8)
 
       points
@@ -283,7 +283,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
           d3.select(this)
             .transition()
             .duration(200)
-            .attr('r', Math.sqrt(d.momentum_score) * 3 + 5)
+            .attr('r', Math.sqrt(d.post_count / 10) * 3 + 5)
         })
         .on('mouseleave', function(event, d) {
           setTooltip(prev => ({ ...prev, visible: false }))
@@ -291,7 +291,7 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
           d3.select(this)
             .transition()
             .duration(200)
-            .attr('r', Math.sqrt(d.momentum_score) * 3 + 2)
+            .attr('r', Math.sqrt(d.post_count / 10) * 3 + 2)
         })
     })
 
@@ -338,14 +338,9 @@ export default function TrendRiverChart({ data }: TrendRiverChartProps) {
             <div className="text-sm">
               贴文数: {isTooltipDataPoint(tooltip.data) ? tooltip.data.post_count : tooltip.data.total_mentions}
             </div>
-            {isTooltipDataPoint(tooltip.data) && tooltip.data.total_interactions && (
+            {isTooltipDataPoint(tooltip.data) && tooltip.data.post_count && (
               <div className="text-sm">
-                互动数: {tooltip.data.total_interactions.toLocaleString()}
-              </div>
-            )}
-            {isTooltipDataPoint(tooltip.data) && tooltip.data.momentum_score && (
-              <div className="text-sm">
-                动量分数: {tooltip.data.momentum_score.toFixed(2)}
+                帖子数量: {tooltip.data.post_count}
               </div>
             )}
           </div>
