@@ -16,6 +16,13 @@ interface HierarchyData {
     children?: HierarchyData[];
 }
 
+interface TreemapNode extends d3.HierarchyNode<HierarchyData> {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+}
+
 export default function TopicTreemap({ data }: TopicTreemapProps) {
   const svgRef = useRef<SVGSVGElement>(null)
   const [tooltip, setTooltip] = useState<{ x: number; y: number; visible: boolean; data?: TopicTreemapData }>({
@@ -98,13 +105,13 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
       .enter()
       .append('g')
       .attr('class', 'cell')
-      .attr('transform', d => `translate(${(d as any).x0},${(d as any).y0})`)
+      .attr('transform', d => `translate(${(d as TreemapNode).x0},${(d as TreemapNode).y0})`)
       .style('cursor', 'pointer')
 
     // 主矩形
     const rects = cells.append('rect')
-      .attr('width', d => Math.max(0, (d as any).x1 - (d as any).x0))
-      .attr('height', d => Math.max(0, (d as any).y1 - (d as any).y0))
+      .attr('width', d => Math.max(0, (d as TreemapNode).x1 - (d as TreemapNode).x0))
+      .attr('height', d => Math.max(0, (d as TreemapNode).y1 - (d as TreemapNode).y0))
       .attr('fill', d => `url(#gradient-${(d.data.data as TopicTreemapData).topic_id})`)
       .attr('stroke', '#fff')
       .attr('stroke-width', 2)
@@ -119,12 +126,12 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
 
     // 主题名称标签
     const labels = cells.append('text')
-      .attr('x', d => ((d as any).x1 - (d as any).x0) / 2)
+      .attr('x', d => ((d as TreemapNode).x1 - (d as TreemapNode).x0) / 2)
       .attr('y', 20)
       .attr('text-anchor', 'middle')
       .style('font-size', d => {
-        const width = (d as any).x1 - (d as any).x0
-        const height = (d as any).y1 - (d as any).y0
+        const width = (d as TreemapNode).x1 - (d as TreemapNode).x0
+        const height = (d as TreemapNode).y1 - (d as TreemapNode).y0
         const area = width * height
         return `${Math.min(16, Math.max(10, Math.sqrt(area) / 10))}px`
       })
@@ -142,8 +149,8 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
 
     // 统计信息标签
     const statsLabels = cells.append('text')
-      .attr('x', d => ((d as any).x1 - (d as any).x0) / 2)
-      .attr('y', d => ((d as any).y1 - (d as any).y0) / 2 + 10)
+      .attr('x', d => ((d as TreemapNode).x1 - (d as TreemapNode).x0) / 2)
+      .attr('y', d => ((d as TreemapNode).y1 - (d as TreemapNode).y0) / 2 + 10)
       .attr('text-anchor', 'middle')
       .style('font-size', '12px')
       .style('fill', '#fff')
@@ -152,8 +159,8 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
       .text(d => `${(d.data.data as TopicTreemapData).post_count} 篇`)
 
     const interactionLabels = cells.append('text')
-      .attr('x', d => ((d as any).x1 - (d as any).x0) / 2)
-      .attr('y', d => ((d as any).y1 - (d as any).y0) / 2 + 25)
+      .attr('x', d => ((d as TreemapNode).x1 - (d as TreemapNode).x0) / 2)
+      .attr('y', d => ((d as TreemapNode).y1 - (d as TreemapNode).y0) / 2 + 25)
       .attr('text-anchor', 'middle')
       .style('font-size', '11px')
       .style('fill', '#fff')
@@ -174,7 +181,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
 
     // 情感指示器
     const sentimentIndicators = cells.append('circle')
-      .attr('cx', d => ((d as any).x1 - (d as any).x0) - 15)
+      .attr('cx', d => ((d as TreemapNode).x1 - (d as TreemapNode).x0) - 15)
       .attr('cy', 15)
       .attr('r', 6)
       .attr('fill', d => sentimentColors[(d.data.data as TopicTreemapData).dominant_sentiment as keyof typeof sentimentColors] || sentimentColors.neutral)
@@ -190,7 +197,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
     // 趋势指示器（小三角形）
     const trendIndicators = cells.append('path')
       .attr('d', d => {
-        const x = ((d as any).x1 - (d as any).x0) - 30
+        const x = ((d as TreemapNode).x1 - (d as TreemapNode).x0) - 30
         const y = 15
         const size = 5
         const trend = (d.data.data as TopicTreemapData).trending_score
@@ -221,8 +228,8 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
     // 子主题显示
     cells.each(function(d) {
       if (d.data.children && d.data.children.length > 0) {
-        const cellWidth = (d as any).x1 - (d as any).x0
-        const cellHeight = (d as any).y1 - (d as any).y0
+        const cellWidth = (d as TreemapNode).x1 - (d as TreemapNode).x0
+        const cellHeight = (d as TreemapNode).y1 - (d as TreemapNode).y0
         
         if (cellWidth > 120 && cellHeight > 80) {
           const subTopics = d.data.children.slice(0, 3) // 最多显示3个子主题
@@ -247,7 +254,7 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
 
     // 鼠标事件处理
     cells
-      .on('mouseenter', function(event, d: any) {
+      .on('mouseenter', function(event, d: TreemapNode) {
         const [x, y] = d3.pointer(event, document.body)
         
         d3.select(this).select('rect')
@@ -260,12 +267,12 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
           .transition()
           .duration(200)
           .attr('transform', 
-            `translate(${(d as any).x0},${(d as any).y0}) scale(1.02) translate(${-((d as any).x1-(d as any).x0)*0.01},${-((d as any).y1-(d as any).y0)*0.01})`
+            `translate(${(d as TreemapNode).x0},${(d as TreemapNode).y0}) scale(1.02) translate(${-((d as TreemapNode).x1-(d as TreemapNode).x0)*0.01},${-((d as TreemapNode).y1-(d as TreemapNode).y0)*0.01})`
           )
 
         setTooltip({ x, y, visible: true, data: d.data.data })
       })
-      .on('mouseleave', function(event, d: any) {
+      .on('mouseleave', function(event, d: TreemapNode) {
         d3.select(this).select('rect')
           .transition()
           .duration(200)
@@ -275,11 +282,11 @@ export default function TopicTreemap({ data }: TopicTreemapProps) {
         d3.select(this)
           .transition()
           .duration(200)
-          .attr('transform', `translate(${(d as any).x0},${(d as any).y0})`)
+          .attr('transform', `translate(${(d as TreemapNode).x0},${(d as TreemapNode).y0})`)
 
         setTooltip(prev => ({ ...prev, visible: false }))
       })
-      .on('click', function(event, d: any) {
+      .on('click', function(event, d: TreemapNode) {
         // 点击时可以展开详细信息或进行钻取
         console.log('Topic clicked:', d.data.data)
       })
